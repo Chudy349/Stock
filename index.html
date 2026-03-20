@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a1209">
+<title>Stock — Café</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#faf8f4;--bg2:#f2ede3;--bg3:#e8e0d0;--card:#ffffff;
+  --text:#1a1209;--text2:#6b5c3e;--text3:#a0906e;
+  --accent:#c8783a;--accent-dark:#854f0b;
+  --danger:#c0392b;--success:#2d7d46;
+  --border:rgba(100,80,40,0.12);--border2:rgba(100,80,40,0.22);
+  --radius:14px;--radius-sm:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:90px;}
+.app-header{background:#1a1209;color:#faf8f4;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.app-logo{font-family:'DM Serif Display',serif;font-size:21px;color:#f5deb3;}
+.app-subtitle{font-size:10px;color:#a0906e;font-weight:300;letter-spacing:0.08em;text-transform:uppercase;}
+.sync-row{display:flex;align-items:center;gap:5px;}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--success);}
+.sync-dot.syncing{background:var(--accent);animation:pulse 0.9s infinite;}
+.sync-dot.error{background:var(--danger);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.25;}}
+.sync-label{font-size:11px;color:#a0906e;}
+.tabs-bar{background:var(--card);border-bottom:1px solid var(--border);display:flex;position:sticky;top:56px;z-index:99;}
+.tab-btn{flex:1;padding:12px 8px 10px;font-size:13px;font-weight:400;font-family:'DM Sans',sans-serif;color:var(--text3);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:color 0.2s,border-color 0.2s;}
+.tab-btn.active{color:var(--accent-dark);border-bottom-color:var(--accent);font-weight:500;}
+.tab-bubble{display:inline-block;background:var(--danger);color:white;font-size:10px;font-weight:500;width:16px;height:16px;border-radius:50%;text-align:center;line-height:16px;margin-left:4px;vertical-align:middle;}
+.section{display:none;padding:14px 16px;}
+.section.active{display:block;}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
+.stat-card{background:var(--card);border-radius:var(--radius-sm);padding:11px 10px;text-align:center;border:1px solid var(--border);}
+.stat-num{font-size:24px;font-weight:500;line-height:1;}
+.stat-lbl{font-size:11px;color:var(--text3);margin-top:2px;font-weight:300;}
+.search-wrap{margin-bottom:12px;position:relative;}
+.search-input{width:100%;padding:10px 14px 10px 36px;border-radius:30px;border:1px solid var(--border2);background:var(--card);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;}
+.search-input:focus{border-color:var(--accent);}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px;pointer-events:none;}
+.cat-label{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);padding:0 2px;margin:14px 0 7px;}
+.cat-label:first-of-type{margin-top:0;}
+.stock-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;margin-bottom:6px;}
+.stock-item.is-low{border-color:rgba(192,57,43,0.25);background:#fffbfb;}
+.item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.item-left{flex:1;min-width:0;}
+.item-name{font-size:15px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.item-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;}
+.tag{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--bg2);color:var(--text2);}
+.tag-prov{background:#e8f0fe;color:#1a56a0;}
+.item-right{display:flex;align-items:center;gap:2px;flex-shrink:0;}
+.qty-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border2);background:var(--bg);color:var(--text);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.qty-btn:active{background:var(--bg3);transform:scale(0.93);}
+.qty-display{text-align:center;min-width:44px;padding:0 4px;}
+.qty-num{font-size:18px;font-weight:500;display:block;line-height:1.2;}
+.qty-num.low{color:var(--danger);}
+.qty-unit{font-size:10px;color:var(--text3);}
+.item-bottom{margin-top:9px;display:flex;align-items:center;gap:8px;}
+.progress-bar{flex:1;height:3px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.4s;}
+.progress-ok{background:var(--success);}
+.progress-low{background:var(--danger);}
+.item-meta-right{font-size:11px;color:var(--text3);white-space:nowrap;}
+.fab{position:fixed;bottom:22px;right:18px;width:52px;height:52px;border-radius:50%;background:var(--accent);color:white;font-size:26px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(200,120,58,0.4);z-index:200;}
+.fab:active{transform:scale(0.91);}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(26,18,9,0.55);z-index:300;align-items:flex-end;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:6px 0 36px;animation:slideUp 0.22s ease;}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-handle{width:36px;height:4px;background:var(--bg3);border-radius:4px;margin:10px auto 16px;}
+.modal-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);padding:0 20px;margin-bottom:16px;}
+.modal-close{float:right;background:none;border:none;font-size:22px;color:var(--text3);cursor:pointer;line-height:1;padding:0 20px;}
+.form-field{padding:0 20px 12px;}
+.form-label{font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px;letter-spacing:0.04em;text-transform:uppercase;}
+.form-input,.form-select{width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--border2);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);outline:none;appearance:none;}
+.form-input:focus,.form-select:focus{border-color:var(--accent);}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;padding:0 20px 12px;}
+.form-row2 .form-field{padding-left:0;padding-right:0;}
+.btn-submit{display:block;width:calc(100% - 40px);margin:6px 20px 0;padding:13px;background:var(--accent);color:white;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;border:none;border-radius:12px;cursor:pointer;}
+.btn-submit:active{background:var(--accent-dark);}
+.edit-danger-zone{padding:14px 20px 0;border-top:1px solid var(--border);margin-top:10px;}
+.btn-delete{display:block;width:100%;padding:12px;background:none;color:var(--danger);font-family:'DM Sans',sans-serif;font-size:14px;border:1px solid rgba(192,57,43,0.3);border-radius:10px;cursor:pointer;}
+.compras-empty{text-align:center;padding:48px 20px;color:var(--text3);}
+.compras-empty-icon{font-size:40px;margin-bottom:12px;}
+.compras-item{background:var(--card);border:1px solid rgba(192,57,43,0.2);border-left:4px solid var(--danger);border-radius:var(--radius);padding:12px 14px;margin-bottom:7px;}
+.compras-item-name{font-size:15px;font-weight:500;}
+.compras-item-detail{font-size:13px;color:var(--danger);margin-top:3px;}
+.compras-item-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.compras-tag{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--bg2);color:var(--text2);}
+.prov-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;margin-bottom:7px;display:flex;align-items:center;gap:12px;}
+.prov-avatar{width:40px;height:40px;border-radius:50%;background:#e8f0fe;color:#1a56a0;font-weight:500;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.prov-info{flex:1;min-width:0;}
+.prov-name{font-size:15px;font-weight:500;}
+.prov-contact{font-size:12px;color:var(--text3);margin-top:2px;}
+.prov-actions{display:flex;gap:6px;}
+.prov-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;text-decoration:none;}
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a1209;color:#faf8f4;font-size:13px;padding:9px 18px;border-radius:30px;opacity:0;transition:opacity 0.3s,transform 0.3s;pointer-events:none;z-index:500;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:12px;}
+.loading-spinner{width:32px;height:32px;border:3px solid var(--bg3);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:14px;color:var(--text3);}
+</style>
+</head>
+<body>
+
+<div class="loading-screen" id="loading-screen">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Conectando...</div>
+</div>
+
+<header class="app-header">
+  <div>
+    <div class="app-logo">☕ Stock</div>
+    <div class="app-subtitle">Control de inventario</div>
+  </div>
+  <div class="sync-row">
+    <span class="sync-dot" id="sync-dot"></span>
+    <span class="sync-label" id="sync-label">conectando</span>
+  </div>
+</header>
+
+<div class="tabs-bar">
+  <button class="tab-btn active" onclick="showTab('inventario',this)">Inventario</button>
+  <button class="tab-btn" onclick="showTab('compras',this)">Compras <span class="tab-bubble" id="compras-bubble" style="display:none"></span></button>
+  <button class="tab-btn" onclick="showTab('proveedores',this)">Proveedores</button>
+</div>
+
+<div id="tab-inventario" class="section active">
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" id="stat-total">—</div><div class="stat-lbl">Total</div></div>
+    <div class="stat-card"><div class="stat-num" id="stat-ok" style="color:var(--success)">—</div><div class="stat-lbl">En nivel</div></div>
+    <div class="stat-card"><div class="stat-num" id="stat-low" style="color:var(--danger)">—</div><div class="stat-lbl">Reponer</div></div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" type="text" id="search-input" placeholder="Buscar producto..." oninput="renderInventario()">
+  </div>
+  <div id="inventario-list"></div>
+</div>
+
+<div id="tab-compras" class="section"><div id="compras-list"></div></div>
+<div id="tab-proveedores" class="section"><div id="proveedores-list"></div></div>
+
+<button class="fab" id="fab-btn" onclick="openAddModal()">+</button>
+
+<div class="modal-overlay" id="modal-producto">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div class="modal-title" id="modal-titulo">Nuevo producto</div>
+      <button class="modal-close" onclick="closeModal('modal-producto')">×</button>
+    </div>
+    <div class="form-field"><label class="form-label">Nombre del producto</label><input class="form-input" id="p-name" type="text" placeholder="ej: Café molido"></div>
+    <div class="form-row2">
+      <div class="form-field"><label class="form-label">Categoría</label><select class="form-select" id="p-cat"><option>Bebidas</option><option>Panadería</option><option>Lácteos</option><option>Ingredientes</option><option>Limpieza</option><option>Otros</option></select></div>
+      <div class="form-field"><label class="form-label">Unidad</label><select class="form-select" id="p-unit"><option value="unid">unidades</option><option value="kg">kg</option><option value="g">gramos</option><option value="L">litros</option><option value="ml">ml</option><option value="cajas">cajas</option><option value="bolsas">bolsas</option><option value="porciones">porciones</option></select></div>
+    </div>
+    <div class="form-row2">
+      <div class="form-field"><label class="form-label">Cantidad actual</label><input class="form-input" id="p-qty" type="number" min="0" placeholder="0"></div>
+      <div class="form-field"><label class="form-label">Cantidad ideal</label><input class="form-input" id="p-ideal" type="number" min="1" placeholder="10"></div>
+    </div>
+    <div class="form-field"><label class="form-label">Proveedor (opcional)</label><select class="form-select" id="p-prov"><option value="">Sin proveedor</option></select></div>
+    <button class="btn-submit" onclick="saveProducto()">Guardar producto</button>
+    <div class="edit-danger-zone" id="delete-zone" style="display:none"><button class="btn-delete" onclick="deleteProducto()">Eliminar producto</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-proveedor">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div class="modal-title" id="modal-prov-titulo">Nuevo proveedor</div>
+      <button class="modal-close" onclick="closeModal('modal-proveedor')">×</button>
+    </div>
+    <div class="form-field"><label class="form-label">Nombre / Empresa</label><input class="form-input" id="pv-name" type="text" placeholder="ej: Distribuidora El Tostador"></div>
+    <div class="form-field"><label class="form-label">Teléfono / WhatsApp</label><input class="form-input" id="pv-phone" type="tel" placeholder="+54 362 ..."></div>
+    <div class="form-field"><label class="form-label">Notas (días de entrega, etc.)</label><input class="form-input" id="pv-notes" type="text" placeholder="ej: Entrega lunes y jueves"></div>
+    <button class="btn-submit" onclick="saveProveedor()">Guardar proveedor</button>
+    <div class="edit-danger-zone" id="delete-prov-zone" style="display:none"><button class="btn-delete" onclick="deleteProveedor()">Eliminar proveedor</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCDOMh_LOfkASuIZKaTHbzR-h84zUSZlDc",
+  authDomain: "stock-8e65d.firebaseapp.com",
+  projectId: "stock-8e65d",
+  storageBucket: "stock-8e65d.firebasestorage.app",
+  messagingSenderId: "829277125082",
+  appId: "1:829277125082:web:d219f022724234d87828e3"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const REF = doc(db, "stock", "datos");
+
+let productos = [], proveedores = [];
+let editingProductoId = null, editingProveedorId = null;
+let currentTab = 'inventario';
+let isSaving = false;
+
+const defaultProductos = [
+  {id:1,name:'Café molido',cat:'Bebidas',unit:'kg',qty:2,ideal:8,provId:1},
+  {id:2,name:'Azúcar',cat:'Ingredientes',unit:'kg',qty:5,ideal:5,provId:null},
+  {id:3,name:'Leche',cat:'Lácteos',unit:'L',qty:4,ideal:10,provId:2},
+  {id:4,name:'Medialunas',cat:'Panadería',unit:'unid',qty:0,ideal:30,provId:3},
+  {id:5,name:'Té variado',cat:'Bebidas',unit:'cajas',qty:3,ideal:4,provId:null},
+  {id:6,name:'Detergente',cat:'Limpieza',unit:'L',qty:1,ideal:3,provId:null},
+];
+const defaultProveedores = [
+  {id:1,name:'Distribuidora El Tostador',phone:'+54 362 4550000',notes:'Entrega lunes y jueves'},
+  {id:2,name:'Lácteos del Norte',phone:'+54 362 4221234',notes:'Entrega todos los días'},
+  {id:3,name:'Panadería Central',phone:'+54 362 4987654',notes:'Pedido antes de las 18hs'},
+];
+
+function setSyncState(s){
+  const dot=document.getElementById('sync-dot');
+  const lbl=document.getElementById('sync-label');
+  dot.className='sync-dot'+(s==='syncing'?' syncing':s==='error'?' error':'');
+  lbl.textContent=s==='syncing'?'guardando...':s==='error'?'sin conexión':'en vivo';
+}
+
+async function saveToFirebase(){
+  isSaving=true;
+  setSyncState('syncing');
+  try{
+    await setDoc(REF,{productos, proveedores});
+    setSyncState('ok');
+  }catch(e){
+    setSyncState('error');
+    console.error(e);
+  }
+  isSaving=false;
+}
+
+// Escuchar cambios en tiempo real
+function startListener(){
+  onSnapshot(REF, (snap)=>{
+    if(isSaving) return;
+    if(snap.exists()){
+      const d=snap.data();
+      productos=d.productos||[];
+      proveedores=d.proveedores||[];
+    } else {
+      // Primera vez: cargar defaults
+      productos=JSON.parse(JSON.stringify(defaultProductos));
+      proveedores=JSON.parse(JSON.stringify(defaultProveedores));
+      saveToFirebase();
+    }
+    document.getElementById('loading-screen').style.display='none';
+    setSyncState('ok');
+    render();
+  }, (err)=>{
+    setSyncState('error');
+    document.getElementById('loading-screen').style.display='none';
+    document.getElementById('sync-label').textContent='error de conexión';
+    console.error(err);
+  });
+}
+
+function nextId(arr){return arr.length>0?Math.max(...arr.map(x=>x.id))+1:1;}
+
+window.showTab=function(tab,btn){
+  currentTab=tab;
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(btn)btn.classList.add('active');
+  document.getElementById('fab-btn').style.display=(tab==='inventario'||tab==='proveedores')?'flex':'none';
+};
+
+window.openAddModal=function(){currentTab==='proveedores'?openProveedorModal():openProductoModal();};
+
+function openProductoModal(id){
+  editingProductoId=id||null;
+  const isEdit=!!id;
+  document.getElementById('modal-titulo').textContent=isEdit?'Editar producto':'Nuevo producto';
+  document.getElementById('delete-zone').style.display=isEdit?'block':'none';
+  const sel=document.getElementById('p-prov');
+  sel.innerHTML='<option value="">Sin proveedor</option>';
+  proveedores.forEach(pv=>{sel.innerHTML+=`<option value="${pv.id}">${pv.name}</option>`;});
+  if(isEdit){
+    const p=productos.find(x=>x.id===id);
+    document.getElementById('p-name').value=p.name;
+    document.getElementById('p-cat').value=p.cat;
+    document.getElementById('p-unit').value=p.unit;
+    document.getElementById('p-qty').value=p.qty;
+    document.getElementById('p-ideal').value=p.ideal;
+    document.getElementById('p-prov').value=p.provId||'';
+  }else{
+    ['p-name','p-qty','p-ideal'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('p-cat').value='Bebidas';
+    document.getElementById('p-unit').value='unid';
+    document.getElementById('p-prov').value='';
+  }
+  document.getElementById('modal-producto').classList.add('open');
+}
+window.openProductoModal=openProductoModal;
+
+window.saveProducto=async function(){
+  const name=document.getElementById('p-name').value.trim();
+  const ideal=parseFloat(document.getElementById('p-ideal').value);
+  if(!name||!ideal||ideal<0.01){showToast('Completá nombre y cantidad ideal');return;}
+  const data={name,cat:document.getElementById('p-cat').value,unit:document.getElementById('p-unit').value,qty:parseFloat(document.getElementById('p-qty').value)||0,ideal,provId:parseInt(document.getElementById('p-prov').value)||null};
+  if(editingProductoId){Object.assign(productos.find(x=>x.id===editingProductoId),data);showToast('Producto actualizado');}
+  else{data.id=nextId(productos);productos.push(data);showToast('Producto agregado');}
+  closeModal('modal-producto');render();await saveToFirebase();
+};
+
+window.deleteProducto=async function(){
+  if(!editingProductoId)return;
+  productos=productos.filter(x=>x.id!==editingProductoId);
+  closeModal('modal-producto');render();showToast('Producto eliminado');await saveToFirebase();
+};
+
+window.changeQty=async function(id,delta){
+  const p=productos.find(x=>x.id===id);
+  if(!p)return;
+  p.qty=Math.max(0,parseFloat((p.qty+delta).toFixed(2)));
+  render();await saveToFirebase();
+};
+
+function openProveedorModal(id){
+  editingProveedorId=id||null;
+  const isEdit=!!id;
+  document.getElementById('modal-prov-titulo').textContent=isEdit?'Editar proveedor':'Nuevo proveedor';
+  document.getElementById('delete-prov-zone').style.display=isEdit?'block':'none';
+  if(isEdit){const pv=proveedores.find(x=>x.id===id);document.getElementById('pv-name').value=pv.name;document.getElementById('pv-phone').value=pv.phone||'';document.getElementById('pv-notes').value=pv.notes||'';}
+  else{['pv-name','pv-phone','pv-notes'].forEach(id=>document.getElementById(id).value='');}
+  document.getElementById('modal-proveedor').classList.add('open');
+}
+window.openProveedorModal=openProveedorModal;
+
+window.saveProveedor=async function(){
+  const name=document.getElementById('pv-name').value.trim();
+  if(!name){showToast('Ingresá el nombre del proveedor');return;}
+  const data={name,phone:document.getElementById('pv-phone').value.trim(),notes:document.getElementById('pv-notes').value.trim()};
+  if(editingProveedorId){Object.assign(proveedores.find(x=>x.id===editingProveedorId),data);showToast('Proveedor actualizado');}
+  else{data.id=nextId(proveedores);proveedores.push(data);showToast('Proveedor agregado');}
+  closeModal('modal-proveedor');render();await saveToFirebase();
+};
+
+window.deleteProveedor=async function(){
+  if(!editingProveedorId)return;
+  proveedores=proveedores.filter(x=>x.id!==editingProveedorId);
+  productos.forEach(p=>{if(p.provId===editingProveedorId)p.provId=null;});
+  closeModal('modal-proveedor');render();showToast('Proveedor eliminado');await saveToFirebase();
+};
+
+window.closeModal=function(id){document.getElementById(id).classList.remove('open');};
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+function getProvName(id){if(!id)return null;const pv=proveedores.find(x=>x.id===id);return pv?pv.name:null;}
+
+function render(){
+  const low=productos.filter(p=>p.qty<p.ideal);
+  document.getElementById('stat-total').textContent=productos.length;
+  document.getElementById('stat-ok').textContent=productos.filter(p=>p.qty>=p.ideal).length;
+  document.getElementById('stat-low').textContent=low.length;
+  const bubble=document.getElementById('compras-bubble');
+  bubble.style.display=low.length>0?'inline-block':'none';
+  bubble.textContent=low.length;
+  renderInventario();renderCompras();renderProveedores();
+}
+
+function renderInventario(){
+  const q=document.getElementById('search-input').value.trim().toLowerCase();
+  const filtered=q?productos.filter(p=>p.name.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)):productos;
+  const cats=[...new Set(filtered.map(p=>p.cat))].sort();
+  let html='';
+  if(!filtered.length){html='<div style="text-align:center;padding:40px;color:var(--text3);font-size:14px">Sin resultados</div>';}
+  else cats.forEach(cat=>{
+    html+=`<div class="cat-label">${cat}</div>`;
+    filtered.filter(p=>p.cat===cat).forEach(p=>{
+      const isLow=p.qty<p.ideal;
+      const pct=Math.min(100,Math.round((p.qty/p.ideal)*100));
+      const provName=getProvName(p.provId);
+      html+=`<div class="stock-item${isLow?' is-low':''}" onclick="openProductoModal(${p.id})">
+        <div class="item-top">
+          <div class="item-left">
+            <div class="item-name">${p.name}</div>
+            <div class="item-tags"><span class="tag">${p.unit}</span>${provName?`<span class="tag tag-prov">${provName}</span>`:''}</div>
+          </div>
+          <div class="item-right" onclick="event.stopPropagation()">
+            <button class="qty-btn" onclick="changeQty(${p.id},-1)">−</button>
+            <div class="qty-display"><span class="qty-num${isLow?' low':''}">${p.qty}</span><span class="qty-unit">${p.unit}</span></div>
+            <button class="qty-btn" onclick="changeQty(${p.id},+1)">+</button>
+          </div>
+        </div>
+        <div class="item-bottom">
+          <div class="progress-bar"><div class="progress-fill ${isLow?'progress-low':'progress-ok'}" style="width:${pct}%"></div></div>
+          <span class="item-meta-right">Ideal: ${p.ideal} ${p.unit}</span>
+        </div>
+      </div>`;
+    });
+  });
+  document.getElementById('inventario-list').innerHTML=html;
+}
+
+function renderCompras(){
+  const low=productos.filter(p=>p.qty<p.ideal);
+  if(!low.length){document.getElementById('compras-list').innerHTML=`<div class="compras-empty"><div class="compras-empty-icon">✅</div><div style="font-size:15px;color:var(--text3)">Todo el stock está en nivel ideal</div></div>`;return;}
+  const conProv={};const sinProv=[];
+  low.forEach(p=>{if(p.provId){if(!conProv[p.provId])conProv[p.provId]=[];conProv[p.provId].push(p);}else sinProv.push(p);});
+  let html='';
+  Object.keys(conProv).forEach(pvId=>{
+    const pv=proveedores.find(x=>x.id===parseInt(pvId));
+    if(!pv)return;
+    html+=`<div class="cat-label" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="background:#e8f0fe;color:#1a56a0;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500">${pv.name}</span>${pv.phone?`<a href="tel:${pv.phone}" style="font-size:10px;color:#1a56a0;text-decoration:none">📞 ${pv.phone}</a>`:''}</div>`;
+    conProv[pvId].forEach(p=>html+=comprasItemHTML(p));
+  });
+  if(sinProv.length){html+=`<div class="cat-label">Sin proveedor asignado</div>`;sinProv.forEach(p=>html+=comprasItemHTML(p));}
+  document.getElementById('compras-list').innerHTML=html;
+}
+
+function comprasItemHTML(p){
+  const faltan=parseFloat((p.ideal-p.qty).toFixed(2));
+  return`<div class="compras-item"><div class="compras-item-name">${p.name}</div><div class="compras-item-detail">Faltan ${faltan} ${p.unit}</div><div class="compras-item-meta"><span class="compras-tag">${p.cat}</span><span class="compras-tag">Actual: ${p.qty} ${p.unit}</span><span class="compras-tag">Ideal: ${p.ideal} ${p.unit}</span></div></div>`;
+}
+
+function renderProveedores(){
+  if(!proveedores.length){document.getElementById('proveedores-list').innerHTML=`<div class="compras-empty"><div class="compras-empty-icon">🏪</div><div style="font-size:15px;color:var(--text3)">Agregá tu primer proveedor</div></div>`;return;}
+  let html='';
+  proveedores.forEach(pv=>{
+    const initials=pv.name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+    const linked=productos.filter(p=>p.provId===pv.id).length;
+    html+=`<div class="prov-item" onclick="openProveedorModal(${pv.id})"><div class="prov-avatar">${initials}</div><div class="prov-info"><div class="prov-name">${pv.name}</div><div class="prov-contact">${pv.notes||''}${linked?` · ${linked} producto${linked>1?'s':''}`:''}</div>${pv.phone?`<div style="font-size:12px;color:#1a56a0;margin-top:2px">${pv.phone}</div>`:''}</div><div class="prov-actions" onclick="event.stopPropagation()">${pv.phone?`<a href="tel:${pv.phone}" class="prov-btn">📞</a>`:''} ${pv.phone?`<a href="https://wa.me/${pv.phone.replace(/[^0-9]/g,'')}" class="prov-btn" target="_blank">💬</a>`:''}</div></div>`;
+  });
+  document.getElementById('proveedores-list').innerHTML=html;
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});});
+
+startListener();
+</script>
+</body>
+</html>
