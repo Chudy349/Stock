@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a1209">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAACbElEQVR42u3cMQ6CQBRFUVpaS5fgotykDatxF/a6AEMEjM77/yS3NJjoCcwMA9P5NEu7m/wEAkgACSABJAEkgASQAJIAEkACSABJAAkgASSAJIAEkAASQAJIAkgACSABJAEkgASQAJIAEkACSABJAAkgASSABJAE0ErL9fJqnM8DxBBDAAEEEEAAMQQQQAABBBBAAAHEEEAAAQQQQAABBBBDAAEEEEAAAQQQQAABBBBAAAHUfU80QwABBBBAAAEEUNPnwhgCCCCAAAIIIIBmhhgCCCCAAAJI3QJInQA97rcOAQRQCz0AAQQQQAABBBBAAAEEEEAAAQQQQAz10AMQQAABBBBAxkAAuZkKEEMAMQQQQEmGInckAgQQQO+5xBkCaLjzTZYhgEa8YAUZAggggCoOmVMMAQQQQAABBFDirfjgR5vpAQgggAACCCCAAAIIIIAAAggggABq84o7gAACKFsPQOMCci8MIIAAAgigREB2JAIEEEC2kgFkOz1A9Q3l6gEIIIA8kAoQQN4PBJA3lAFED0D0ANR3FmY7B0MAAUQPQAABBBBAAAEEEEAAAQQQQAABBBBD9AAEEEAAAQQQQAABBBBAAAEEEEAAUVXeSiNAzjcAlb2cAUQPQ+UAGUEDZBYGEDoe66GHIdN4ASSABJAEkAASQAIoYSnok1WileMc/K5NBwQIIIAAAqghoE1/zyY3+ygABBBAAAEE0BfHQH8B1McNQAABBBBAPxgVGQMBBBBAAAEUsRv64CqzlWiAAAIIIIBkGi8BJIAEkACSABJAAkgASQAJIAEkgASQBJAAEkACSAJIAAkg1e4J2efsaOIghZUAAAAASUVORK5CYII=">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAACbElEQVR42u3cMQ6CQBRFUVpaS5fgotykDatxF/a6AEMEjM77/yS3NJjoCcwMA9P5NEu7m/wEAkgACSABJAEkgASQAJIAEkACSABJAAkgASSAJIAEkAASQAJIAkgACSABJAEkgASQAJIAEkACSABJAAkgASSABJAE0ErL9fJqnM8DxBBDAAEEEEAAMQQQQAABBBBAAAHEEEAAAQQQQAABBBBDAAEEEEAAAQQQQAABBBBAAAHUfU80QwABBBBAAAEEUNPnwhgCCCCAAAIIIIBmhhgCCCCAAAJI3QJInQA97rcOAQRQCz0AAQQQQAABBBBAAAEEEEAAAQQQQAz10AMQQAABBBBAxkAAuZkKEEMAMQQQQEmGInckAgQQQO+5xBkCaLjzTZYhgEa8YAUZAggggCoOmVMMAQQQQAABBFDirfjgR5vpAQgggAACCCCAAAIIIIAAAggggABq84o7gAACKFsPQOMCci8MIIAAAgigREB2JAIEEEC2kgFkOz1A9Q3l6gEIIIA8kAoQQN4PBJA3lAFED0D0ANR3FmY7B0MAAUQPQAABBBBAAAEEEEAAAQQQQAABBBBD9AAEEEAAAQQQQAABBBBAAAEEEEAAUVXeSiNAzjcAlb2cAUQPQ+UAGUEDZBYGEDoe66GHIdN4ASSABJAEkAASQAIoYSnok1WileMc/K5NBwQIIIAAAqghoE1/zyY3+ygABBBAAAEE0BfHQH8B1McNQAABBBBAPxgVGQMBBBBAAAEUsRv64CqzlWiAAAIIIIBkGi8BJIAEkACSABJAAkgASQAJIAEkgASQBJAAEkACSAJIAAkg1e4J2efsaOIghZUAAAAASUVORK5CYII=">
+<meta name="apple-mobile-web-app-title" content="Stock">
+<meta name="application-name" content="Stock">
+<title>Stock</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f4ef;--bg2:#ede8df;--bg3:#e0d8cb;--card:#fff;
+  --text:#1a1209;--text2:#5c4a2e;--text3:#9c8b70;--text4:#c4b49a;
+  --accent:#b85e2a;--accent2:#e07840;
+  --danger:#b83232;--success:#2a7a4a;--info:#1a56a0;
+  --danger-light:#fdf0f0;--success-light:#eef7f2;--info-light:#eef3fc;
+  --border:rgba(90,65,30,0.1);--border2:rgba(90,65,30,0.2);
+  --radius:14px;--radius-sm:10px;
+  --shadow:0 1px 3px rgba(90,65,30,0.07),0 3px 12px rgba(90,65,30,0.05);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:84px;}
+
+/* LOGIN */
+#login-screen{position:fixed;inset:0;background:linear-gradient(160deg,#1a1209,#3a2510 50%,#1a1209);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;padding:20px;overflow-y:auto;}
+.login-logo{font-family:'DM Serif Display',serif;font-size:36px;color:#f5deb3;margin-bottom:3px;text-align:center;}
+.login-sub{font-size:10px;color:#a0906e;letter-spacing:.15em;text-transform:uppercase;margin-bottom:28px;}
+.login-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:22px 18px;width:100%;max-width:340px;}
+.login-step{display:none;}.login-step.active{display:block;}
+.step-label{font-size:10px;color:#a0906e;letter-spacing:.1em;text-transform:uppercase;font-weight:500;margin-bottom:12px;text-align:center;}
+.emp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.emp-btn{padding:18px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#d4c4a8;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-align:center;transition:all .2s;}
+.emp-btn:active,.emp-btn.sel{background:rgba(184,94,42,.35);border-color:rgba(184,94,42,.6);color:#f5deb3;}
+.emp-icon{font-size:26px;display:block;margin-bottom:6px;}
+.emp-btn-full{width:100%;margin-top:10px;padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#d4c4a8;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;}
+.emp-btn-full:active,.emp-btn-full.sel{background:rgba(184,94,42,.35);border-color:rgba(184,94,42,.6);color:#f5deb3;}
+.role-list{display:flex;flex-direction:column;gap:7px;}
+.role-btn{padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#d4c4a8;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:left;display:flex;align-items:center;gap:10px;transition:all .2s;}
+.role-btn:active{background:rgba(184,94,42,.35);border-color:rgba(184,94,42,.6);color:#f5deb3;}
+.role-icon{font-size:18px;width:24px;text-align:center;}
+.role-name{font-size:13px;font-weight:600;}
+.role-desc{font-size:11px;opacity:.6;margin-top:1px;}
+.pin-dots{display:flex;justify-content:center;gap:12px;margin:12px 0 18px;}
+.pin-dot{width:13px;height:13px;border-radius:50%;border:2px solid rgba(255,255,255,.2);background:transparent;transition:all .15s;}
+.pin-dot.filled{background:#b85e2a;border-color:#b85e2a;}
+.pin-shake{animation:shake .4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%,75%{transform:translateX(-8px);}50%{transform:translateX(8px);}}
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.num-btn{padding:14px;border-radius:13px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.07);color:#f5deb3;font-family:'DM Serif Display',serif;font-size:21px;cursor:pointer;text-align:center;transition:all .15s;user-select:none;}
+.num-btn:active{background:rgba(184,94,42,.3);transform:scale(.95);}
+.num-del{font-family:'DM Sans',sans-serif;font-size:17px;}
+.num-empty{background:transparent!important;border-color:transparent!important;pointer-events:none;}
+.pin-err{text-align:center;color:#e07878;font-size:13px;margin-top:10px;min-height:18px;}
+.back-btn{background:none;border:none;color:#a0906e;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;margin-bottom:14px;padding:0;display:flex;align-items:center;gap:4px;}
+.back-btn:hover{color:#f5deb3;}
+
+/* HEADER */
+.app-header{background:#1a1209;padding:0 15px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.h-left{display:flex;align-items:center;gap:8px;}
+.h-logo{font-family:'DM Serif Display',serif;font-size:18px;color:#f5deb3;}
+.h-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em;}
+.badge-admin{background:rgba(184,94,42,.3);color:#f5deb3;}
+.badge-cafe{background:rgba(26,86,160,.3);color:#a8c8f0;}
+.badge-cocina{background:rgba(42,122,74,.3);color:#a8e6c0;}
+.badge-panaderia{background:rgba(160,100,20,.3);color:#f5d48a;}
+.badge-pasteleria{background:rgba(180,60,120,.3);color:#f5b8d8;}
+.h-right{display:flex;align-items:center;gap:7px;}
+.sync-pill{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.07);padding:4px 9px;border-radius:20px;}
+.sdot{width:6px;height:6px;border-radius:50%;background:var(--success);}
+.sdot.syn{background:var(--accent2);animation:p .9s infinite;}
+.sdot.err{background:var(--danger);}
+@keyframes p{0%,100%{opacity:1;}50%{opacity:.2;}}
+.stext{font-size:10px;color:#a0906e;}
+.logout-btn{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:#a0906e;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;}
+
+/* TABS */
+.tabs-bar{background:var(--card);border-bottom:1px solid var(--border);display:flex;position:sticky;top:54px;z-index:99;}
+.tab-btn{flex:1;padding:12px 6px 10px;font-size:12px;font-weight:400;font-family:'DM Sans',sans-serif;color:var(--text3);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600;}
+.tbubble{display:inline-flex;align-items:center;justify-content:center;background:var(--danger);color:#fff;font-size:9px;font-weight:600;min-width:15px;height:15px;padding:0 3px;border-radius:8px;margin-left:3px;vertical-align:middle;}
+
+/* SECTIONS */
+.section{display:none;padding:13px 14px;}.section.active{display:block;}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:13px;}
+.stat-card{background:var(--card);border-radius:var(--radius-sm);padding:11px 8px;text-align:center;border:1px solid var(--border);box-shadow:var(--shadow);}
+.stat-num{font-size:22px;font-weight:600;line-height:1;font-family:'DM Serif Display',serif;}
+.stat-lbl{font-size:10px;color:var(--text3);margin-top:2px;}
+
+/* SEARCH */
+.search-wrap{margin-bottom:11px;position:relative;}
+.search-input{width:100%;padding:9px 36px 9px 36px;border-radius:30px;border:1px solid var(--border2);background:var(--card);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;}
+.search-input:focus{border-color:var(--accent);}
+.search-clear{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:var(--bg3);border:none;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:var(--text2);line-height:1;padding:0;display:none;}
+.search-clear.visible{display:flex;}
+mark.hl{background:#ff8c00;color:#fff;border-radius:2px;padding:0 1px;}
+.search-ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:13px;pointer-events:none;}
+
+/* FILTERS */
+.filters{display:flex;gap:5px;margin-bottom:11px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+.filters::-webkit-scrollbar{display:none;}
+.fchip{padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--card);color:var(--text3);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;}
+.fchip.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* EMPRESA DIVIDER */
+.emp-divider{display:flex;align-items:center;gap:8px;margin:14px 0 8px;}
+.emp-divider-lbl{font-family:'DM Serif Display',serif;font-size:15px;color:var(--text2);white-space:nowrap;}
+.emp-divider-line{flex:1;height:1px;background:var(--border2);}
+
+/* CATEGORY ACCORDION */
+.cat-accordion{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px;background:var(--card);box-shadow:var(--shadow);}
+.cat-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;cursor:pointer;user-select:none;background:var(--card);}
+.cat-header:active{background:var(--bg2);}
+.cat-header-l{display:flex;align-items:center;gap:8px;}
+.cat-title{font-size:13px;font-weight:600;color:var(--text);}
+.cat-pills{display:flex;gap:5px;align-items:center;}
+.cat-pill{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;}
+.cpill-total{background:var(--bg2);color:var(--text3);}
+.cpill-low{background:var(--danger-light);color:var(--danger);}
+.cat-chev{font-size:11px;color:var(--text4);transition:transform .25s;}
+.cat-chev.open{transform:rotate(180deg);}
+.cat-body{overflow:hidden;transition:max-height .3s ease,opacity .2s;}
+.cat-body.closed{max-height:0!important;opacity:0;}
+.cat-body.open{opacity:1;}
+.cat-body-inner{padding:0 8px 8px;}
+
+/* STOCK ITEM */
+.stock-item{border-radius:10px;padding:10px 11px;margin-bottom:6px;border:1px solid var(--border);background:var(--card);}
+.stock-item.is-low{border-color:rgba(184,50,50,.2);background:#fffafa;}
+.stock-item.is-crit{border-color:rgba(184,50,50,.4);background:#fff5f5;}
+.item-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.item-left{flex:1;min-width:0;}
+.item-name{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.item-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px;}
+.tag{font-size:10px;padding:1px 7px;border-radius:20px;font-weight:500;}
+.tag-unit{background:var(--bg2);color:var(--text2);}
+.tag-prov{background:var(--info-light);color:var(--info);}
+.tag-emp-pyta{background:#fdf0e6;color:#b85e2a;}
+.tag-emp-primitivo{background:#eef3fc;color:#1a56a0;}
+.tag-emp-pana{background:#fdf6e3;color:#a06414;}
+.tag-sec-cafe{background:var(--info-light);color:var(--info);}
+.tag-sec-cocina{background:var(--success-light);color:var(--success);}
+.tag-sec-general{background:var(--bg2);color:var(--text2);}
+.tag-sec-panaderia{background:#fdf6e3;color:#a06414;}
+.tag-sec-pasteleria{background:#fdf0f7;color:#b43c78;}
+.item-right{display:flex;align-items:center;gap:2px;flex-shrink:0;}
+.qty-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--bg);color:var(--text);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;}
+.qty-btn:active{background:var(--bg3);transform:scale(.91);}
+.qty-btn:disabled{opacity:.3;cursor:default;}
+.qty-disp{text-align:center;min-width:42px;padding:0 2px;}
+.qty-n{font-size:17px;font-weight:600;display:block;line-height:1.2;font-family:'DM Serif Display',serif;}
+.qty-n.ok{color:var(--success);}
+.qty-n.low{color:var(--accent2);}
+.qty-n.crit{color:var(--danger);}
+.qty-u{font-size:10px;color:var(--text3);}
+.item-bottom{margin-top:7px;display:flex;align-items:center;gap:7px;}
+.prog-track{flex:1;height:3px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;transition:width .4s;}
+.fill-ok{background:var(--success);}
+.fill-low{background:var(--accent2);}
+.fill-crit{background:var(--danger);}
+.item-meta{font-size:10px;color:var(--text3);white-space:nowrap;}
+
+/* FAB */
+.fab{position:fixed;bottom:20px;right:15px;height:48px;padding:0 16px;border-radius:24px;background:var(--accent);color:#fff;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;display:flex;align-items:center;gap:7px;box-shadow:0 4px 18px rgba(184,94,42,.45);z-index:200;transition:transform .2s;}
+.fab:active{transform:scale(.93);}
+
+/* MODALS */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(26,18,9,.6);z-index:300;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px);}
+.modal-ov.open{display:flex;}
+.modal{background:var(--card);border-radius:22px 22px 0 0;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;padding:6px 0 36px;animation:su .25s cubic-bezier(.34,1.56,.64,1);}
+@keyframes su{from{transform:translateY(70px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-handle{width:38px;height:4px;background:var(--bg3);border-radius:4px;margin:10px auto 16px;}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 18px;margin-bottom:16px;}
+.modal-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);}
+.modal-x{width:28px;height:28px;border-radius:50%;border:none;background:var(--bg2);color:var(--text2);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;}
+.ff{padding:0 18px 12px;}
+.fl{font-size:11px;font-weight:600;color:var(--text2);display:block;margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase;}
+.fi,.fs{width:100%;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border2);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;appearance:none;transition:border-color .2s;}
+.fi:focus,.fs:focus{border-color:var(--accent);}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 18px 12px;}
+.fr2 .ff{padding:0;}
+.btn-ok{display:flex;align-items:center;justify-content:center;width:calc(100% - 36px);margin:8px 18px 0;padding:13px;background:var(--accent);color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;border:none;border-radius:12px;cursor:pointer;}
+.btn-ok:active{background:#9a4e22;}
+.dz{padding:13px 18px 0;border-top:1px solid var(--border);margin-top:10px;}
+.btn-del{display:block;width:100%;padding:11px;background:none;color:var(--danger);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;border:1.5px solid rgba(184,50,50,.25);border-radius:11px;cursor:pointer;}
+
+/* COMPRAS */
+.comp-empty{text-align:center;padding:50px 20px;}
+.comp-empty-ic{font-size:42px;margin-bottom:10px;}
+.comp-empty-t{font-family:'DM Serif Display',serif;font-size:19px;color:var(--text2);margin-bottom:5px;}
+.comp-empty-s{font-size:13px;color:var(--text3);}
+.comp-group{margin-bottom:16px;}
+.comp-g-hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-bottom:7px;}
+.comp-g-name{font-size:13px;font-weight:600;color:var(--text2);}
+.comp-g-btns{display:flex;gap:5px;}
+.comp-g-btn{padding:4px 10px;border-radius:20px;border:1px solid var(--border2);background:var(--card);color:var(--info);font-size:11px;font-weight:500;text-decoration:none;display:flex;align-items:center;gap:3px;}
+.comp-item{background:var(--card);border:1px solid rgba(184,50,50,.15);border-left:3px solid var(--danger);border-radius:var(--radius-sm);padding:10px 13px;margin-bottom:6px;}
+.comp-name{font-size:14px;font-weight:600;}
+.comp-det{font-size:12px;color:var(--danger);margin-top:2px;font-weight:500;}
+.comp-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px;}
+
+/* PROVEEDORES */
+.prov-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 13px;margin-bottom:7px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.prov-av{width:38px;height:38px;border-radius:50%;background:var(--info-light);color:var(--info);font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.prov-info{flex:1;min-width:0;}
+.prov-name{font-size:14px;font-weight:600;}
+.prov-det{font-size:12px;color:var(--text3);margin-top:1px;}
+.prov-btns{display:flex;gap:5px;}
+.prov-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border2);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:14px;text-decoration:none;}
+
+/* ADMIN */
+.adm-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--text);margin:16px 0 9px;}
+.adm-title:first-child{margin-top:0;}
+.user-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;margin-bottom:7px;display:flex;align-items:center;gap:10px;}
+.user-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;background:var(--bg2);}
+.user-inf{flex:1;}
+.user-name{font-size:14px;font-weight:600;}
+.user-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+.pin-btn{padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--bg);color:var(--text2);font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* TRANSFERS */
+.transfer-log{margin-top:6px;}
+.tlog-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:var(--radius-sm);padding:9px 13px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.tlog-info{flex:1;min-width:0;}
+.tlog-name{font-size:13px;font-weight:600;color:var(--text);}
+.tlog-det{font-size:11px;color:var(--text3);margin-top:2px;}
+.tlog-qty{font-size:15px;font-weight:600;color:var(--accent);font-family:'DM Serif Display',serif;white-space:nowrap;}
+.tlog-dest{font-size:10px;color:var(--text3);text-align:right;}
+.tlog-empty{text-align:center;padding:36px 20px;color:var(--text3);font-size:14px;}
+.dest-chips{display:flex;gap:8px;margin-top:6px;}
+.dest-chip{flex:1;padding:12px 8px;border-radius:12px;border:1.5px solid var(--border2);background:var(--bg);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-align:center;transition:all .2s;}
+.dest-chip.sel{background:rgba(184,94,42,.12);border-color:var(--accent);color:var(--accent);}
+.dest-chip:active{transform:scale(.96);}
+
+/* TOAST */
+.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(14px);background:#1a1209;color:#faf8f4;font-size:13px;font-weight:500;padding:9px 18px;border-radius:30px;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:999;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* BACK FLOAT BTN */
+.back-float{position:fixed;bottom:20px;left:15px;width:44px;height:44px;border-radius:50%;background:#1a1209;color:#f5deb3;font-size:20px;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(26,18,9,.35);z-index:200;transition:transform .2s;}
+.back-float.visible{display:flex;}
+.back-float:active{transform:scale(.91);}
+
+/* LOADING */
+.loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:998;gap:11px;}
+.lspinner{width:30px;height:30px;border:3px solid var(--bg3);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.ltext{font-size:13px;color:var(--text3);}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-logo">☕ Stock</div>
+  <div class="login-sub">Control de inventario</div>
+  <div class="login-card">
+    <div class="login-step active" id="step-emp">
+      <div class="step-label">Seleccioná tu empresa</div>
+      <div class="emp-grid">
+        <button class="emp-btn" onclick="selEmp('pyta',this)"><span class="emp-icon">🫖</span>Pyta</button>
+        <button class="emp-btn" onclick="selEmp('primitivo',this)"><span class="emp-icon">🍽️</span>Primitivo</button>
+      </div>
+      <button class="emp-btn-full" onclick="selEmp('pana',this)"><span>🥐</span>Pana</button>
+      <button class="emp-btn-full" onclick="selEmp('admin',this)"><span>👑</span>Administrador</button>
+    </div>
+    <div class="login-step" id="step-role">
+      <button class="back-btn" onclick="goBack('step-emp')">← Volver</button>
+      <div class="step-label" id="role-label">Seleccioná tu sector</div>
+      <div class="role-list" id="role-list"></div>
+    </div>
+    <div class="login-step" id="step-pin">
+      <button class="back-btn" onclick="goBack('step-role')">← Volver</button>
+      <div class="step-label">Ingresá tu PIN</div>
+      <div class="pin-dots" id="pdots">
+        <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+        <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
+      </div>
+      <div class="numpad">
+        <button class="num-btn" onclick="pp('1')">1</button>
+        <button class="num-btn" onclick="pp('2')">2</button>
+        <button class="num-btn" onclick="pp('3')">3</button>
+        <button class="num-btn" onclick="pp('4')">4</button>
+        <button class="num-btn" onclick="pp('5')">5</button>
+        <button class="num-btn" onclick="pp('6')">6</button>
+        <button class="num-btn" onclick="pp('7')">7</button>
+        <button class="num-btn" onclick="pp('8')">8</button>
+        <button class="num-btn" onclick="pp('9')">9</button>
+        <button class="num-btn num-empty"></button>
+        <button class="num-btn" onclick="pp('0')">0</button>
+        <button class="num-btn num-del" onclick="pd()">⌫</button>
+      </div>
+      <div class="pin-err" id="pin-err"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading-screen" id="loading-screen" style="display:none">
+  <div class="lspinner"></div><div class="ltext">Cargando stock...</div>
+</div>
+
+<!-- HEADER -->
+<header class="app-header" id="app-header" style="display:none">
+  <div class="h-left">
+    <span class="h-logo" id="h-logo"></span>
+    <span class="h-badge" id="h-badge"></span>
+  </div>
+  <div class="h-right">
+    <div class="sync-pill"><span class="sdot" id="sdot"></span><span class="stext" id="stext">en vivo</span></div>
+    <button class="logout-btn" onclick="logout()">↩</button>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tabs-bar" id="tabs-bar" style="display:none">
+  <button class="tab-btn active" onclick="showTab('inv',this)">Inventario</button>
+  <button class="tab-btn" onclick="showTab('comp',this)">Compras <span class="tbubble" id="tb" style="display:none"></span></button>
+  <button class="tab-btn" onclick="showTab('transfers',this)" id="ttransfers" style="display:none">Salidas</button>
+  <button class="tab-btn" onclick="showTab('prov',this)" id="tprov" style="display:none">Proveed.</button>
+  <button class="tab-btn" onclick="showTab('adm',this)" id="tadm" style="display:none">Admin</button>
+</div>
+
+<div id="tab-inv" class="section active" style="display:none">
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num" id="st-tot">—</div><div class="stat-lbl">Productos</div></div>
+    <div class="stat-card"><div class="stat-num" id="st-ok" style="color:var(--success)">—</div><div class="stat-lbl">En nivel</div></div>
+    <div class="stat-card"><div class="stat-num" id="st-low" style="color:var(--danger)">—</div><div class="stat-lbl">Reponer</div></div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ic">🔍</span>
+    <input class="search-input" type="text" id="search" placeholder="Buscar producto..." oninput="onSearchInput()">
+    <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
+  </div>
+  <div id="filter-wrap"></div>
+  <div id="inv-list"></div>
+</div>
+<div id="tab-comp" class="section" style="display:none"><div id="comp-list"></div></div>
+<div id="tab-transfers" class="section" style="display:none">
+  <div id="transfers-summary"></div>
+  <div id="transfers-list"></div>
+</div>
+<div id="tab-prov" class="section" style="display:none"><div id="prov-list"></div></div>
+<div id="tab-adm" class="section" style="display:none"><div id="adm-list"></div></div>
+
+<button class="fab" id="fab" style="display:none" onclick="openAddModal()">
+  <span>+</span><span id="fab-lbl">Agregar</span>
+</button>
+
+<!-- MODAL PRODUCTO -->
+<div class="modal-ov" id="m-prod">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div class="modal-title" id="m-prod-title">Nuevo producto</div>
+      <button class="modal-x" onclick="closeModal('m-prod')">×</button>
+    </div>
+    <div class="ff"><label class="fl">Nombre</label><input class="fi" id="p-name" type="text" placeholder="ej: Café molido"></div>
+    <div class="fr2">
+      <div class="ff"><label class="fl">Empresa</label>
+        <select class="fs" id="p-emp" onchange="onEmpChange()">
+          <option value="pyta">🫖 Pyta</option>
+          <option value="primitivo">🍽️ Primitivo</option>
+          <option value="pana">🥐 Pana</option>
+        </select>
+      </div>
+      <div class="ff"><label class="fl">Sector</label>
+        <select class="fs" id="p-sec">
+          <option value="cafe">☕ Café</option>
+          <option value="cocina">🍳 Cocina</option>
+          <option value="general">📦 General</option>
+        </select>
+      </div>
+    </div>
+    <div class="fr2">
+      <div class="ff"><label class="fl">Categoría</label><input class="fi" id="p-cat" type="text" placeholder="ej: Bebidas" list="cat-suggestions"><datalist id="cat-suggestions"></datalist></div>
+      <div class="ff"><label class="fl">Unidad</label>
+        <select class="fs" id="p-unit">
+          <option value="unid">unidades</option><option value="kg">kg</option><option value="g">gramos</option>
+          <option value="L">litros</option><option value="ml">ml</option><option value="cajas">cajas</option>
+          <option value="bolsas">bolsas</option><option value="porciones">porciones</option>
+        </select>
+      </div>
+    </div>
+    <div class="fr2">
+      <div class="ff"><label class="fl">Cantidad actual</label><input class="fi" id="p-qty" type="number" min="0" placeholder="0"></div>
+      <div class="ff"><label class="fl">Cantidad ideal</label><input class="fi" id="p-ideal" type="number" min="1" placeholder="10"></div>
+    </div>
+    <div class="ff"><label class="fl">Proveedor</label><select class="fs" id="p-prov"><option value="">Sin proveedor</option></select></div>
+    <button class="btn-ok" onclick="saveProd()">Guardar producto</button>
+    <div class="dz" id="dz-prod" style="display:none"><button class="btn-del" onclick="delProd()">Eliminar producto</button></div>
+  </div>
+</div>
+
+<!-- MODAL PROVEEDOR -->
+<div class="modal-ov" id="m-prov">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div class="modal-title" id="m-prov-title">Nuevo proveedor</div>
+      <button class="modal-x" onclick="closeModal('m-prov')">×</button>
+    </div>
+    <div class="ff"><label class="fl">Nombre / Empresa</label><input class="fi" id="pv-name" type="text" placeholder="ej: Distribuidora El Tostador"></div>
+    <div class="ff"><label class="fl">Teléfono / WhatsApp</label><input class="fi" id="pv-phone" type="tel" placeholder="+54 362 ..."></div>
+    <div class="ff"><label class="fl">Notas</label><input class="fi" id="pv-notes" type="text" placeholder="ej: Entrega lunes y jueves"></div>
+    <button class="btn-ok" onclick="saveProv()">Guardar proveedor</button>
+    <div class="dz" id="dz-prov" style="display:none"><button class="btn-del" onclick="delProv()">Eliminar proveedor</button></div>
+  </div>
+</div>
+
+<!-- MODAL PIN -->
+<div class="modal-ov" id="m-pin">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div class="modal-title" id="m-pin-title">Cambiar PIN</div>
+      <button class="modal-x" onclick="closeModal('m-pin')">×</button>
+    </div>
+    <div class="ff"><label class="fl">Nuevo PIN (4 dígitos)</label><input class="fi" id="pin-new" type="number" placeholder="ej: 1234"></div>
+    <button class="btn-ok" onclick="savePin()">Guardar PIN</button>
+  </div>
+</div>
+
+<button class="back-float" id="back-float" onclick="goBackTab()">←</button>
+
+<!-- MODAL TRANSFERENCIA -->
+<div class="modal-ov" id="m-transfer">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div class="modal-title">Registrar salida</div>
+      <button class="modal-x" onclick="closeModal('m-transfer')">×</button>
+    </div>
+    <div class="ff"><label class="fl">Producto</label><input class="fi" id="tr-prod-name" type="text" readonly style="background:var(--bg2);color:var(--text2)"></div>
+    <div class="ff"><label class="fl">Cantidad a retirar</label><input class="fi" id="tr-qty" type="number" min="0.01" step="0.01" placeholder="ej: 2"></div>
+    <div class="ff"><label class="fl">Destino</label>
+      <div class="dest-chips">
+        <button class="dest-chip" id="dest-pyta" onclick="selDest('pyta',this)">🫖 Pyta</button>
+        <button class="dest-chip" id="dest-primitivo" onclick="selDest('primitivo',this)">🍽️ Primitivo</button>
+      </div>
+    </div>
+    <button class="btn-ok" onclick="saveTransfer()">Confirmar salida</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const FB = {
+  apiKey:"AIzaSyCDOMh_LOfkASuIZKaTHbzR-h84zUSZlDc",
+  authDomain:"stock-8e65d.firebaseapp.com",
+  projectId:"stock-8e65d",
+  storageBucket:"stock-8e65d.firebasestorage.app",
+  messagingSenderId:"829277125082",
+  appId:"1:829277125082:web:d219f022724234d87828e3"
+};
+const db = getFirestore(initializeApp(FB));
+const SREF = doc(db,"stock","datos");
+const CREF = doc(db,"stock","config");
+
+// ── CONFIG ──
+const EMPS = {
+  pyta:      {label:'Pyta',      icon:'🫖', roles:{cafe:{label:'Café',      icon:'☕',desc:'Bebidas y barra',          secs:['cafe','general']}}},
+  primitivo: {label:'Primitivo', icon:'🍽️', roles:{cafe:{label:'Café',      icon:'☕',desc:'Bebidas y barra',          secs:['cafe','general']}, cocina:{label:'Cocina',icon:'🍳',desc:'Cocina y preparación',secs:['cocina','general']}}},
+  pana:      {label:'Pana',      icon:'🥐', roles:{panaderia:{label:'Panadería', icon:'🍞',desc:'Stock de panadería',    secs:['panaderia','general']}, pasteleria:{label:'Pastelería',icon:'🎂',desc:'Stock de pastelería',secs:['pasteleria','general']}}},
+  admin:     {label:'Admin',     icon:'👑', roles:{admin:{label:'Administrador',icon:'👑',desc:'Acceso total',           secs:['cafe','cocina','panaderia','pasteleria','general']}}}
+};
+
+let prods=[], provs=[], transfers=[];
+let pins={admin_admin:'1234',pyta_cafe:'1111',primitivo_cafe:'2222',primitivo_cocina:'3333',pana_panaderia:'4444',pana_pasteleria:'5555'};
+let curEmp=null, curRole=null;
+let selEmpresa=null, selRole=null, pinBuf='';
+let curTab='inv', fEmp='todos', fSec='todos';
+let collapsed={};
+let editProdId=null, editProvId=null, editPinKey=null;
+let transferProdId=null, selDestino=null;
+let saving=false;
+
+const defProds=[
+  {id:1,name:'Café molido',emp:'pyta',cat:'Bebidas',sec:'cafe',unit:'kg',qty:2,ideal:8,provId:1},
+  {id:2,name:'Leche',emp:'pyta',cat:'Lácteos',sec:'cafe',unit:'L',qty:4,ideal:10,provId:null},
+  {id:3,name:'Azúcar',emp:'pyta',cat:'Ingredientes',sec:'general',unit:'kg',qty:5,ideal:5,provId:null},
+  {id:4,name:'Café molido',emp:'primitivo',cat:'Bebidas',sec:'cafe',unit:'kg',qty:1,ideal:6,provId:1},
+  {id:5,name:'Medialunas',emp:'primitivo',cat:'Panadería',sec:'cafe',unit:'unid',qty:0,ideal:24,provId:2},
+  {id:6,name:'Harina',emp:'primitivo',cat:'Ingredientes',sec:'cocina',unit:'kg',qty:3,ideal:10,provId:null},
+  {id:7,name:'Aceite',emp:'primitivo',cat:'Ingredientes',sec:'cocina',unit:'L',qty:1,ideal:4,provId:null},
+  {id:8,name:'Detergente',emp:'primitivo',cat:'Limpieza',sec:'general',unit:'L',qty:1,ideal:3,provId:null},
+  {id:9,name:'Harina 000',emp:'pana',cat:'Ingredientes',sec:'panaderia',unit:'kg',qty:10,ideal:50,provId:null},
+  {id:10,name:'Levadura',emp:'pana',cat:'Ingredientes',sec:'panaderia',unit:'kg',qty:1,ideal:5,provId:null},
+  {id:11,name:'Manteca',emp:'pana',cat:'Lácteos',sec:'panaderia',unit:'kg',qty:3,ideal:10,provId:null},
+  {id:12,name:'Azúcar impalpable',emp:'pana',cat:'Ingredientes',sec:'pasteleria',unit:'kg',qty:2,ideal:8,provId:null},
+  {id:13,name:'Chocolate cobertura',emp:'pana',cat:'Ingredientes',sec:'pasteleria',unit:'kg',qty:1,ideal:5,provId:null},
+];
+const defProvs=[
+  {id:1,name:'Distribuidora El Tostador',phone:'+54 362 4550000',notes:'Entrega lunes y jueves'},
+  {id:2,name:'Panadería Central',phone:'+54 362 4987654',notes:'Pedido antes de las 18hs'},
+];
+
+// ── SYNC ──
+function setSync(s){
+  const d=document.getElementById('sdot'),t=document.getElementById('stext');
+  if(!d)return;
+  d.className='sdot'+(s==='syn'?' syn':s==='err'?' err':'');
+  t.textContent=s==='syn'?'guardando':s==='err'?'sin conexión':'en vivo';
+}
+async function saveStock(){
+  saving=true;setSync('syn');
+  try{await setDoc(SREF,{productos:prods,proveedores:provs,transfers});setSync('ok');}
+  catch(e){setSync('err');}
+  saving=false;
+}
+async function saveCfg(){try{await setDoc(CREF,{pins});}catch(e){}}
+
+// ── LOGIN ──
+window.selEmp=function(emp,btn){
+  selEmpresa=emp;
+  document.querySelectorAll('.emp-btn,.emp-btn-full').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  if(emp==='admin'){selRole='admin';showStep('step-pin');}
+  else{
+    document.getElementById('role-label').textContent='Sector en '+EMPS[emp].label;
+    const rl=document.getElementById('role-list');
+    rl.innerHTML='';
+    Object.entries(EMPS[emp].roles).forEach(([k,r])=>{
+      rl.innerHTML+=`<button class="role-btn" onclick="selRoleBtn('${k}',this)">
+        <span class="role-icon">${r.icon}</span>
+        <div><div class="role-name">${r.label}</div><div class="role-desc">${r.desc}</div></div>
+      </button>`;
+    });
+    showStep('step-role');
+  }
+};
+
+window.selRoleBtn=function(role,btn){
+  selRole=role;
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  pinBuf='';updDots();
+  document.getElementById('pin-err').textContent='';
+  showStep('step-pin');
+};
+
+window.goBack=function(step){
+  showStep(step);pinBuf='';updDots();
+  document.getElementById('pin-err').textContent='';
+};
+
+function showStep(id){
+  document.querySelectorAll('.login-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+window.pp=function(d){if(pinBuf.length>=4)return;pinBuf+=d;updDots();if(pinBuf.length===4)setTimeout(checkPin,120);};
+window.pd=function(){pinBuf=pinBuf.slice(0,-1);updDots();};
+function updDots(){for(let i=0;i<4;i++)document.getElementById('d'+i).classList.toggle('filled',i<pinBuf.length);}
+
+function checkPin(){
+  const key=selEmpresa==='admin'?'admin_admin':`${selEmpresa}_${selRole}`;
+  if(pinBuf===String(pins[key])){
+    curEmp=selEmpresa;curRole=selRole;
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('loading-screen').style.display='flex';
+    startApp();
+  } else {
+    document.getElementById('pin-err').textContent='PIN incorrecto';
+    document.getElementById('pdots').classList.add('pin-shake');
+    setTimeout(()=>{
+      document.getElementById('pdots').classList.remove('pin-shake');
+      pinBuf='';updDots();document.getElementById('pin-err').textContent='';
+    },600);
+  }
+}
+
+window.logout=function(){
+  curEmp=null;curRole=null;selEmpresa=null;selRole=null;pinBuf='';updDots();
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('app-header').style.display='none';
+  document.getElementById('tabs-bar').style.display='none';
+  document.getElementById('fab').style.display='none';
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  showStep('step-emp');
+  document.querySelectorAll('.emp-btn,.emp-btn-full').forEach(b=>b.classList.remove('sel'));
+};
+
+// ── START APP ──
+function startApp(){
+  onSnapshot(SREF,snap=>{
+    if(!saving){
+      if(snap.exists()){const d=snap.data();prods=d.productos||[];provs=d.proveedores||[];transfers=d.transfers||[];}
+      else{prods=JSON.parse(JSON.stringify(defProds));provs=JSON.parse(JSON.stringify(defProvs));transfers=[];saveStock();}
+      if(document.getElementById('loading-screen').style.display!=='none'){
+        document.getElementById('loading-screen').style.display='none';showUI();
+      }
+      setSync('ok');render();
+    }
+  });
+  onSnapshot(CREF,snap=>{if(snap.exists()&&snap.data().pins)pins=snap.data().pins;});
+}
+
+function showUI(){
+  document.getElementById('app-header').style.display='flex';
+  document.getElementById('tabs-bar').style.display='flex';
+  document.getElementById('fab').style.display='flex';
+  document.querySelectorAll('.section').forEach(s=>s.style.display='');
+  const isAdm=curRole==='admin';
+  const isPana=curEmp==='pana';
+  const emp=isAdm?EMPS.admin:EMPS[curEmp];
+  const role=isAdm?EMPS.admin.roles.admin:emp.roles[curRole];
+  document.getElementById('h-logo').textContent=emp.icon+' '+(isAdm?'Admin':emp.label);
+  const b=document.getElementById('h-badge');
+  b.textContent=role.label;b.className='h-badge badge-'+curRole;
+  document.getElementById('tprov').style.display=isAdm?'':'none';
+  document.getElementById('tadm').style.display=isAdm?'':'none';
+  document.getElementById('ttransfers').style.display=(isPana||isAdm)?'':'none';
+  fEmp='todos';fSec='todos';
+  showTab('inv',document.querySelector('.tab-btn'));
+}
+
+// ── TABS ──
+window.showTab=function(tab,btn){
+  curTab=tab;
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(btn)btn.classList.add('active');
+  document.getElementById('fab').style.display=(tab==='inv'||tab==='prov')?'flex':'none';
+  document.getElementById('fab-lbl').textContent=tab==='prov'?'Proveedor':'Producto';
+  if(tab==='adm'||tab==='transfers')document.getElementById('fab').style.display='none';
+  // Botón ←: mostrar solo en tabs secundarias
+  const bf=document.getElementById('back-float');
+  if(bf)bf.classList.toggle('visible',tab!=='inv');
+  if(tab==='transfers')renderTransfers();
+};
+
+window.goBackTab=function(){
+  const firstBtn=document.querySelector('.tab-btn');
+  showTab('inv',firstBtn);
+};
+
+window.openAddModal=function(){if(curTab==='prov')openProv();else openProd();};
+
+// ── SEARCH ──
+window.onSearchInput=function(){
+  const q=document.getElementById('search').value;
+  const btn=document.getElementById('search-clear');
+  if(btn)btn.classList.toggle('visible',q.length>0);
+  // Al buscar, forzar todos los acordeones abiertos
+  if(q.trim()){Object.keys(collapsed).forEach(k=>{collapsed[k]=false;});}
+  renderInv();
+};
+window.clearSearch=function(){
+  const inp=document.getElementById('search');
+  inp.value='';
+  const btn=document.getElementById('search-clear');
+  if(btn)btn.classList.remove('visible');
+  renderInv();
+};
+function highlightText(text,q){
+  if(!q)return text;
+  const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  return text.replace(re,'<mark class="hl">$1</mark>');
+}
+
+// ── HELPERS ──
+function getVisible(){
+  if(curRole==='admin')return prods;
+  const secs=EMPS[curEmp].roles[curRole].secs;
+  return prods.filter(p=>p.emp===curEmp&&secs.includes(p.sec||'general'));
+}
+function canEdit(p){
+  if(curRole==='admin')return true;
+  const secs=EMPS[curEmp].roles[curRole].secs;
+  return p.emp===curEmp&&secs.includes(p.sec||'general');
+}
+function nextId(arr){return arr.length>0?Math.max(...arr.map(x=>x.id))+1:1;}
+
+// ── PRODUCTOS ──
+function openProd(id){
+  editProdId=id||null;
+  const isEdit=!!id;
+  document.getElementById('m-prod-title').textContent=isEdit?'Editar producto':'Nuevo producto';
+  document.getElementById('dz-prod').style.display=isEdit&&curRole==='admin'?'block':'none';
+  // Llenar sugerencias de categorías existentes
+  const cats=[...new Set(prods.map(p=>p.cat))].sort();
+  const dl=document.getElementById('cat-suggestions');
+  dl.innerHTML=cats.map(c=>`<option value="${c}">`).join('');
+  // Llenar proveedores
+  const sp=document.getElementById('p-prov');
+  sp.innerHTML='<option value="">Sin proveedor</option>';
+  provs.forEach(pv=>{sp.innerHTML+=`<option value="${pv.id}">${pv.name}</option>`;});
+
+  if(isEdit){
+    const p=prods.find(x=>x.id===id);
+    document.getElementById('p-name').value=p.name;
+    document.getElementById('p-emp').value=p.emp||'pyta';
+    document.getElementById('p-sec').value=p.sec||'general';
+    document.getElementById('p-cat').value=p.cat||'';
+    document.getElementById('p-unit').value=p.unit;
+    document.getElementById('p-qty').value=p.qty;
+    document.getElementById('p-ideal').value=p.ideal;
+    document.getElementById('p-prov').value=p.provId||'';
+  } else {
+    document.getElementById('p-name').value='';
+    document.getElementById('p-qty').value='';
+    document.getElementById('p-ideal').value='';
+    document.getElementById('p-cat').value='';
+    document.getElementById('p-emp').value=curRole==='admin'?'pyta':curEmp;
+    const defSec={cafe:'cafe',cocina:'cocina',panaderia:'panaderia',pasteleria:'pasteleria'}[curRole]||'cafe';
+    document.getElementById('p-sec').value=curRole==='admin'?'cafe':defSec;
+    document.getElementById('p-prov').value='';
+  }
+  // Actualizar sectores disponibles
+  onEmpChange();
+  // Admin puede cambiar empresa/sector, empleados no
+  document.getElementById('p-emp').disabled=curRole!=='admin';
+  document.getElementById('p-sec').disabled=curRole!=='admin';
+  document.getElementById('m-prod').classList.add('open');
+}
+window.openProd=openProd;
+
+window.onEmpChange=function(){
+  const emp=document.getElementById('p-emp').value;
+  const sec=document.getElementById('p-sec');
+  const cur=sec.value;
+  sec.innerHTML='<option value="cafe">☕ Café</option>';
+  if(emp==='primitivo')sec.innerHTML+='<option value="cocina">🍳 Cocina</option>';
+  if(emp==='pana'){
+    sec.innerHTML='<option value="panaderia">🍞 Panadería</option>';
+    sec.innerHTML+='<option value="pasteleria">🎂 Pastelería</option>';
+  }
+  sec.innerHTML+='<option value="general">📦 General</option>';
+  if([...sec.options].some(o=>o.value===cur))sec.value=cur;
+};
+
+window.saveProd=async function(){
+  const name=document.getElementById('p-name').value.trim();
+  const cat=document.getElementById('p-cat').value.trim();
+  const ideal=parseFloat(document.getElementById('p-ideal').value);
+  const emp=document.getElementById('p-emp').value;
+  if(!name){showToast('Ingresá el nombre');return;}
+  if(!cat){showToast('Ingresá la categoría');return;}
+  if(!ideal||ideal<0.01){showToast('Ingresá la cantidad ideal');return;}
+  // Validar duplicado
+  const dup=prods.find(p=>p.name.toLowerCase()===name.toLowerCase()&&p.emp===emp&&p.id!==editProdId);
+  if(dup){showToast('Ya existe "'+name+'" en '+EMPS[emp].label);return;}
+  const data={name,emp,cat,sec:document.getElementById('p-sec').value,unit:document.getElementById('p-unit').value,qty:parseFloat(document.getElementById('p-qty').value)||0,ideal,provId:parseInt(document.getElementById('p-prov').value)||null};
+  if(editProdId){Object.assign(prods.find(x=>x.id===editProdId),data);showToast('✓ Actualizado');}
+  else{data.id=nextId(prods);prods.push(data);showToast('✓ Producto agregado');}
+  closeModal('m-prod');render();await saveStock();
+};
+
+window.delProd=async function(){
+  if(!editProdId)return;
+  prods=prods.filter(x=>x.id!==editProdId);
+  closeModal('m-prod');render();showToast('Eliminado');await saveStock();
+};
+
+// ── TRANSFERENCIAS (SALIDAS) ──
+window.openTransfer=function(id){
+  const p=prods.find(x=>x.id===id);if(!p)return;
+  transferProdId=id;
+  selDestino=null;
+  document.getElementById('tr-prod-name').value=p.name+' ('+p.qty+' '+p.unit+' disponibles)';
+  document.getElementById('tr-qty').value='';
+  document.querySelectorAll('.dest-chip').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('m-transfer').classList.add('open');
+};
+window.selDest=function(dest,btn){
+  selDestino=dest;
+  document.querySelectorAll('.dest-chip').forEach(c=>c.classList.remove('sel'));
+  btn.classList.add('sel');
+};
+window.saveTransfer=async function(){
+  const p=prods.find(x=>x.id===transferProdId);if(!p)return;
+  const qty=parseFloat(document.getElementById('tr-qty').value);
+  if(!qty||qty<=0){showToast('Ingresá una cantidad');return;}
+  if(qty>p.qty){showToast('No hay suficiente stock ('+p.qty+' '+p.unit+')');return;}
+  if(!selDestino){showToast('Seleccioná el destino');return;}
+  p.qty=parseFloat((p.qty-qty).toFixed(2));
+  const destLabel=selDestino==='pyta'?'Pyta':'Primitivo';
+  transfers.unshift({
+    id:Date.now(),
+    prodId:p.id,
+    prodName:p.name,
+    unit:p.unit,
+    qty,
+    dest:selDestino,
+    destLabel,
+    emp:p.emp,
+    sec:p.sec||'general',
+    ts:new Date().toISOString()
+  });
+  closeModal('m-transfer');render();
+  showToast(`✓ ${qty} ${p.unit} enviados a ${destLabel}`);
+  await saveStock();
+};
+
+function renderTransfers(){
+  const isAdm=curRole==='admin';
+  const list=isAdm?transfers:transfers.filter(t=>t.emp==='pana');
+  const sumEl=document.getElementById('transfers-summary');
+  const el=document.getElementById('transfers-list');
+
+  if(!list.length){
+    sumEl.innerHTML='';
+    el.innerHTML=`<div class="tlog-empty">📋 Sin salidas registradas</div>`;
+    return;
+  }
+
+  // ── Totales por destino y por producto ──
+  const totByDest={pyta:0,primitivo:0};
+  const totByProd={};
+  list.forEach(t=>{
+    if(totByDest[t.dest]!==undefined) totByDest[t.dest]+=t.qty;
+    const key=t.prodName+'||'+t.unit;
+    if(!totByProd[key])totByProd[key]={name:t.prodName,unit:t.unit,pyta:0,primitivo:0};
+    totByProd[key][t.dest]=(totByProd[key][t.dest]||0)+t.qty;
+  });
+
+  let sumHtml=`<div style="margin-bottom:12px">
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;text-align:center">
+        <div style="font-size:20px;font-weight:600;font-family:'DM Serif Display',serif;color:var(--accent)">${list.length}</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:1px">Salidas totales</div>
+      </div>
+      <div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;text-align:center">
+        <div style="font-size:13px;font-weight:600;color:var(--text2)">🫖 Pyta</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${Object.values(totByProd).filter(p=>p.pyta>0).map(p=>`${parseFloat(p.pyta.toFixed(2))} ${p.unit} ${p.name}`).join('<br>')||'—'}</div>
+      </div>
+      <div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;text-align:center">
+        <div style="font-size:13px;font-weight:600;color:var(--text2)">🍽️ Primitivo</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${Object.values(totByProd).filter(p=>p.primitivo>0).map(p=>`${parseFloat(p.primitivo.toFixed(2))} ${p.unit} ${p.name}`).join('<br>')||'—'}</div>
+      </div>
+    </div>
+    <button onclick="confirmClearTransfers()" style="width:100%;padding:9px;border-radius:10px;border:1.5px solid rgba(184,50,50,.25);background:none;color:var(--danger);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer">🗑️ Limpiar historial completo</button>
+  </div>`;
+  sumEl.innerHTML=sumHtml;
+
+  // ── Lista con botón eliminar por ítem ──
+  const DEST_ICONS={pyta:'🫖',primitivo:'🍽️'};
+  const SEC_LABELS={panaderia:'🍞 Panadería',pasteleria:'🎂 Pastelería',cafe:'☕ Café',cocina:'🍳 Cocina',general:'📦 General'};
+  let html='';
+  list.forEach(t=>{
+    const date=new Date(t.ts);
+    const dateStr=date.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit'})+' '+date.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+    html+=`<div class="tlog-item">
+      <div class="tlog-info">
+        <div class="tlog-name">${t.prodName}</div>
+        <div class="tlog-det">${SEC_LABELS[t.sec]||t.sec} · ${dateStr}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+        <div style="text-align:right">
+          <div class="tlog-qty">−${t.qty} ${t.unit}</div>
+          <div class="tlog-dest">${DEST_ICONS[t.dest]||''} ${t.destLabel}</div>
+        </div>
+        <button onclick="deleteTransfer(${t.id})" style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(184,50,50,.25);background:none;color:var(--danger);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">×</button>
+      </div>
+    </div>`;
+  });
+  el.innerHTML=html;
+}
+
+window.deleteTransfer=async function(id){
+  transfers=transfers.filter(t=>t.id!==id);
+  renderTransfers();
+  await saveStock();
+  showToast('Salida eliminada');
+};
+
+window.confirmClearTransfers=function(){
+  if(!confirm('¿Limpiar todo el historial de salidas? Esta acción no se puede deshacer.'))return;
+  transfers=[];
+  renderTransfers();
+  saveStock();
+  showToast('Historial borrado');
+};
+
+window.changeQty=async function(id,delta){
+  const p=prods.find(x=>x.id===id);if(!p)return;
+  p.qty=Math.max(0,parseFloat((p.qty+delta).toFixed(2)));
+  render();await saveStock();
+};
+
+window.editQty=function(id,container){
+  const p=prods.find(x=>x.id===id);if(!p)return;
+  const span=container.querySelector('.qty-n');
+  const inp=document.createElement('input');
+  inp.type='number';inp.min='0';inp.step='0.01';inp.value=p.qty;
+  inp.style.cssText='width:48px;font-size:17px;font-weight:600;font-family:inherit;text-align:center;border:none;border-bottom:2px solid var(--accent);background:transparent;color:var(--text);outline:none;';
+  span.replaceWith(inp);inp.focus();inp.select();
+  async function confirm(){
+    const v=parseFloat(inp.value);
+    if(!isNaN(v)&&v>=0&&v!==p.qty){p.qty=parseFloat(v.toFixed(2));await saveStock();}
+    render();
+  }
+  inp.addEventListener('blur',confirm);
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')inp.blur();if(e.key==='Escape')render();});
+};
+
+// ── PROVEEDORES ──
+function openProv(id){
+  editProvId=id||null;
+  const isEdit=!!id;
+  document.getElementById('m-prov-title').textContent=isEdit?'Editar proveedor':'Nuevo proveedor';
+  document.getElementById('dz-prov').style.display=isEdit?'block':'none';
+  if(isEdit){const pv=provs.find(x=>x.id===id);document.getElementById('pv-name').value=pv.name;document.getElementById('pv-phone').value=pv.phone||'';document.getElementById('pv-notes').value=pv.notes||'';}
+  else{document.getElementById('pv-name').value='';document.getElementById('pv-phone').value='';document.getElementById('pv-notes').value='';}
+  document.getElementById('m-prov').classList.add('open');
+}
+window.openProv=openProv;
+
+window.saveProv=async function(){
+  const name=document.getElementById('pv-name').value.trim();
+  if(!name){showToast('Ingresá el nombre');return;}
+  const data={name,phone:document.getElementById('pv-phone').value.trim(),notes:document.getElementById('pv-notes').value.trim()};
+  if(editProvId){Object.assign(provs.find(x=>x.id===editProvId),data);showToast('✓ Proveedor actualizado');}
+  else{data.id=nextId(provs);provs.push(data);showToast('✓ Proveedor agregado');}
+  closeModal('m-prov');render();await saveStock();
+};
+
+window.delProv=async function(){
+  if(!editProvId)return;
+  provs=provs.filter(x=>x.id!==editProvId);
+  prods.forEach(p=>{if(p.provId===editProvId)p.provId=null;});
+  closeModal('m-prov');render();showToast('Eliminado');await saveStock();
+};
+
+// ── PINs ──
+window.openPinModal=function(key){
+  editPinKey=key;
+  const labels={admin_admin:'Admin',pyta_cafe:'Pyta — Café',primitivo_cafe:'Primitivo — Café',primitivo_cocina:'Primitivo — Cocina'};
+  document.getElementById('m-pin-title').textContent='PIN: '+labels[key];
+  document.getElementById('pin-new').value='';
+  document.getElementById('m-pin').classList.add('open');
+};
+window.savePin=async function(){
+  const v=document.getElementById('pin-new').value.trim();
+  if(v.length!==4||isNaN(v)){showToast('PIN debe tener 4 dígitos');return;}
+  pins[editPinKey]=v;closeModal('m-pin');renderAdm();showToast('✓ PIN actualizado');await saveCfg();
+};
+
+// ── RENDER ──
+function render(){
+  const vis=getVisible();
+  const low=vis.filter(p=>p.qty<p.ideal);
+  document.getElementById('st-tot').textContent=vis.length;
+  document.getElementById('st-ok').textContent=vis.filter(p=>p.qty>=p.ideal).length;
+  document.getElementById('st-low').textContent=low.length;
+  const tb=document.getElementById('tb');
+  tb.style.display=low.length>0?'inline-flex':'none';tb.textContent=low.length;
+  renderInv();renderComp();
+  if(curRole==='admin'){renderProvs();renderAdm();}
+}
+
+window.setFEmp=function(f){fEmp=f;fSec='todos';renderInv();};
+window.setFSec=function(f){fSec=f;renderInv();};
+window.toggleCat=function(key){
+  collapsed[key]=!collapsed[key];
+  const body=document.getElementById('cb-'+key);
+  const chev=document.getElementById('cc-'+key);
+  if(!body)return;
+  if(collapsed[key]){body.classList.remove('open');body.classList.add('closed');body.style.maxHeight='0';}
+  else{body.classList.add('open');body.classList.remove('closed');body.style.maxHeight=body.scrollHeight+50+'px';}
+  if(chev)chev.classList.toggle('open',!collapsed[key]);
+};
+
+function renderInv(){
+  // Filtros (solo admin)
+  const fw=document.getElementById('filter-wrap');
+  if(curRole==='admin'){
+    let html=`<div class="filters">
+      <button class="fchip ${fEmp==='todos'?'active':''}" onclick="setFEmp('todos')">Todas</button>
+      <button class="fchip ${fEmp==='pyta'?'active':''}" onclick="setFEmp('pyta')">🫖 Pyta</button>
+      <button class="fchip ${fEmp==='primitivo'?'active':''}" onclick="setFEmp('primitivo')">🍽️ Primitivo</button>
+      <button class="fchip ${fEmp==='pana'?'active':''}" onclick="setFEmp('pana')">🥐 Pana</button>
+    </div>`;
+    if(fEmp!=='todos'){
+      html+=`<div class="filters">
+        <button class="fchip ${fSec==='todos'?'active':''}" onclick="setFSec('todos')">Todos</button>
+        ${fEmp==='pyta'?`<button class="fchip ${fSec==='cafe'?'active':''}" onclick="setFSec('cafe')">☕ Café</button>`:''}
+        ${fEmp==='primitivo'?`<button class="fchip ${fSec==='cafe'?'active':''}" onclick="setFSec('cafe')">☕ Café</button><button class="fchip ${fSec==='cocina'?'active':''}" onclick="setFSec('cocina')">🍳 Cocina</button>`:''}
+        ${fEmp==='pana'?`<button class="fchip ${fSec==='panaderia'?'active':''}" onclick="setFSec('panaderia')">🍞 Panadería</button><button class="fchip ${fSec==='pasteleria'?'active':''}" onclick="setFSec('pasteleria')">🎂 Pastelería</button>`:''}
+        <button class="fchip ${fSec==='general'?'active':''}" onclick="setFSec('general')">📦 General</button>
+      </div>`;
+    }
+    fw.innerHTML=html;
+  } else {fw.innerHTML='';}
+
+  const q=document.getElementById('search').value.trim().toLowerCase();
+  let vis=getVisible();
+  if(curRole==='admin'){
+    if(fEmp!=='todos')vis=vis.filter(p=>p.emp===fEmp);
+    if(fSec!=='todos')vis=vis.filter(p=>(p.sec||'general')===fSec);
+  }
+  if(q)vis=vis.filter(p=>p.name.toLowerCase().includes(q)||(p.cat||'').toLowerCase().includes(q));
+
+  let html='';
+  if(!vis.length){
+    html='<div style="text-align:center;padding:36px;color:var(--text3);font-size:14px">Sin productos</div>';
+    document.getElementById('inv-list').innerHTML=html;return;
+  }
+
+  // Agrupar: admin-todos → por empresa → por cat; sino → por cat
+  if(curRole==='admin'&&fEmp==='todos'){
+    ['pyta','primitivo','pana'].forEach(emp=>{
+      const eItems=vis.filter(p=>p.emp===emp);
+      if(!eItems.length)return;
+      html+=`<div class="emp-divider"><div class="emp-divider-lbl">${EMPS[emp].icon} ${EMPS[emp].label}</div><div class="emp-divider-line"></div></div>`;
+      html+=buildCatAccordions(eItems, emp+'_', true, q);
+    });
+  } else {
+    html+=buildCatAccordions(vis, (curRole==='admin'?fEmp:curEmp)+'_', curRole==='admin', q);
+  }
+  document.getElementById('inv-list').innerHTML=html;
+}
+
+function buildCatAccordions(items, prefix, showEmpTag, q=''){
+  const cats=[...new Set(items.map(p=>p.cat||'Sin categoría'))].sort();
+  let html='';
+  cats.forEach(cat=>{
+    const catItems=items.filter(p=>(p.cat||'Sin categoría')===cat);
+    const lowN=catItems.filter(p=>p.qty<p.ideal).length;
+    const key=(prefix+cat).replace(/\W/g,'_');
+    const isCol=q?false:!!collapsed[key];
+    const mh=catItems.length*120+60;
+    html+=`<div class="cat-accordion">
+      <div class="cat-header" onclick="toggleCat('${key}')">
+        <div class="cat-header-l">
+          <span class="cat-title">${cat}</span>
+          <div class="cat-pills">
+            <span class="cat-pill cpill-total">${catItems.length}</span>
+            ${lowN?`<span class="cat-pill cpill-low">${lowN} bajo${lowN>1?'s':''}</span>`:''}
+          </div>
+        </div>
+        <span class="cat-chev ${isCol?'':'open'}" id="cc-${key}">▼</span>
+      </div>
+      <div class="cat-body ${isCol?'closed':'open'}" id="cb-${key}" style="max-height:${isCol?'0':mh}px">
+        <div class="cat-body-inner">`;
+    catItems.forEach(p=>{
+      const isLow=p.qty<p.ideal,isCrit=p.qty===0&&p.ideal>0;
+      const pct=Math.min(100,Math.round((p.qty/p.ideal)*100));
+      const cls=isCrit?'is-crit':isLow?'is-low':'';
+      const qc=isCrit?'crit':isLow?'low':'ok';
+      const fc=isCrit?'fill-crit':isLow?'fill-low':'fill-ok';
+      const pv=provs.find(x=>x.id===p.provId);
+      const sec=p.sec||'general';
+      const ce=canEdit(p);
+      const displayName=highlightText(p.name, q);
+      html+=`<div class="stock-item ${cls}" onclick="${ce?`openProd(${p.id})`:''}" style="${ce?'cursor:pointer':''}">
+        <div class="item-top">
+          <div class="item-left">
+            <div class="item-name">${displayName}</div>
+            <div class="item-tags">
+              <span class="tag tag-unit">${p.unit}</span>
+              <span class="tag tag-sec-${sec}">${sec==='cocina'?'🍳':sec==='cafe'?'☕':sec==='panaderia'?'🍞':sec==='pasteleria'?'🎂':'📦'} ${sec}</span>
+              ${showEmpTag?`<span class="tag tag-emp-${p.emp||'pyta'}">${p.emp==='primitivo'?'🍽️ Primitivo':p.emp==='pana'?'🥐 Pana':'🫖 Pyta'}</span>`:''}
+              ${pv?`<span class="tag tag-prov">${pv.name}</span>`:''}
+            </div>
+          </div>
+          <div class="item-right" onclick="event.stopPropagation()">
+            ${(p.emp==='pana'&&ce&&p.qty>0)?`<button class="qty-btn" style="font-size:13px;width:34px" onclick="openTransfer(${p.id})" title="Registrar salida">📤</button>`:''}
+            <button class="qty-btn" onclick="changeQty(${p.id},-1)" ${!ce?'disabled':''}">−</button>
+            <div class="qty-disp" onclick="${ce?`editQty(${p.id},this)`:''}" style="${ce?'cursor:text':''}">
+              <span class="qty-n ${qc}">${p.qty}</span>
+              <span class="qty-u">${p.unit}</span>
+            </div>
+            <button class="qty-btn" onclick="changeQty(${p.id},+1)" ${!ce?'disabled':''}">+</button>
+          </div>
+        </div>
+        <div class="item-bottom">
+          <div class="prog-track"><div class="prog-fill ${fc}" style="width:${pct}%"></div></div>
+          <span class="item-meta">Ideal: ${p.ideal} ${p.unit}</span>
+        </div>
+      </div>`;
+    });
+    html+=`</div></div></div>`;
+  });
+  return html;
+}
+
+function renderComp(){
+  const vis=getVisible();
+  const low=vis.filter(p=>p.qty<p.ideal);
+  if(!low.length){
+    document.getElementById('comp-list').innerHTML=`<div class="comp-empty"><div class="comp-empty-ic">✅</div><div class="comp-empty-t">Todo en orden</div><div class="comp-empty-s">Todo el stock está en nivel ideal</div></div>`;
+    return;
+  }
+  let html='';
+  const empGroups=curRole==='admin'?['pyta','primitivo','pana']:[curEmp];
+  empGroups.forEach(emp=>{
+    const eItems=low.filter(p=>p.emp===emp);
+    if(!eItems.length)return;
+    if(curRole==='admin')html+=`<div class="emp-divider"><div class="emp-divider-lbl">${EMPS[emp].icon} ${EMPS[emp].label}</div><div class="emp-divider-line"></div></div>`;
+    const conProv={},sinProv=[];
+    eItems.forEach(p=>{if(p.provId){if(!conProv[p.provId])conProv[p.provId]=[];conProv[p.provId].push(p);}else sinProv.push(p);});
+    Object.keys(conProv).forEach(pvId=>{
+      const pv=provs.find(x=>x.id===parseInt(pvId));if(!pv)return;
+      html+=`<div class="comp-group"><div class="comp-g-hdr"><span class="comp-g-name">📦 ${pv.name}</span><div class="comp-g-btns">${pv.phone?`<a href="tel:${pv.phone}" class="comp-g-btn">📞</a>`:''} ${pv.phone?`<a href="https://wa.me/${pv.phone.replace(/\D/g,'')}" class="comp-g-btn" target="_blank">💬</a>`:''}</div></div>`;
+      conProv[pvId].forEach(p=>html+=compItem(p));html+='</div>';
+    });
+    if(sinProv.length){html+=`<div class="comp-group"><div class="comp-g-hdr"><span class="comp-g-name">Sin proveedor</span></div>`;sinProv.forEach(p=>html+=compItem(p));html+='</div>';}
+  });
+  document.getElementById('comp-list').innerHTML=html;
+}
+
+function compItem(p){
+  const f=parseFloat((p.ideal-p.qty).toFixed(2));
+  const sec=p.sec||'general';
+  const secIco=sec==='cocina'?'🍳':sec==='cafe'?'☕':sec==='panaderia'?'🍞':sec==='pasteleria'?'🎂':'📦';
+  return`<div class="comp-item"><div class="comp-name">${p.name}</div><div class="comp-det">Faltan ${f} ${p.unit}</div><div class="comp-tags"><span class="tag tag-unit">${p.cat}</span><span class="tag tag-sec-${sec}">${secIco} ${sec}</span><span class="tag tag-unit">Actual: ${p.qty} · Ideal: ${p.ideal} ${p.unit}</span></div></div>`;
+}
+
+function renderProvs(){
+  if(!provs.length){document.getElementById('prov-list').innerHTML=`<div class="comp-empty"><div class="comp-empty-ic">🏪</div><div class="comp-empty-t">Sin proveedores</div></div>`;return;}
+  let html='';
+  provs.forEach(pv=>{
+    const ini=pv.name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+    const lk=prods.filter(p=>p.provId===pv.id).length;
+    html+=`<div class="prov-item" onclick="openProv(${pv.id})"><div class="prov-av">${ini}</div><div class="prov-info"><div class="prov-name">${pv.name}</div><div class="prov-det">${pv.notes||''}${lk?` · ${lk} producto${lk>1?'s':''}`:''}</div>${pv.phone?`<div style="font-size:11px;color:var(--info);margin-top:1px">${pv.phone}</div>`:''}</div><div class="prov-btns" onclick="event.stopPropagation()">${pv.phone?`<a href="tel:${pv.phone}" class="prov-btn">📞</a>`:''} ${pv.phone?`<a href="https://wa.me/${pv.phone.replace(/\D/g,'')}" class="prov-btn" target="_blank">💬</a>`:''}</div></div>`;
+  });
+  document.getElementById('prov-list').innerHTML=html;
+}
+
+function renderAdm(){
+  const pk=[
+    {key:'admin_admin',label:'Administrador',icon:'👑',sub:'Acceso total'},
+    {key:'pyta_cafe',label:'Pyta — Café',icon:'🫖',sub:'Stock café de Pyta'},
+    {key:'primitivo_cafe',label:'Primitivo — Café',icon:'☕',sub:'Stock café de Primitivo'},
+    {key:'primitivo_cocina',label:'Primitivo — Cocina',icon:'🍳',sub:'Stock cocina de Primitivo'},
+    {key:'pana_panaderia',label:'Pana — Panadería',icon:'🍞',sub:'Stock panadería de Pana'},
+    {key:'pana_pasteleria',label:'Pana — Pastelería',icon:'🎂',sub:'Stock pastelería de Pana'},
+  ];
+  let html='<div class="adm-title">Usuarios y PINs</div>';
+  pk.forEach(p=>{html+=`<div class="user-card"><div class="user-av">${p.icon}</div><div class="user-inf"><div class="user-name">${p.label}</div><div class="user-sub">${p.sub}</div></div><button class="pin-btn" onclick="openPinModal('${p.key}')">Cambiar PIN</button></div>`;});
+  html+=`<div class="adm-title" style="margin-top:20px">Proveedores</div>`;
+  provs.forEach(pv=>{
+    const ini=pv.name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+    const lk=prods.filter(p=>p.provId===pv.id).length;
+    html+=`<div class="prov-item" onclick="openProv(${pv.id})"><div class="prov-av">${ini}</div><div class="prov-info"><div class="prov-name">${pv.name}</div><div class="prov-det">${pv.notes||''}${lk?` · ${lk} producto${lk>1?'s':''}`:''}</div>${pv.phone?`<div style="font-size:11px;color:var(--info);margin-top:1px">${pv.phone}</div>`:''}</div><div class="prov-btns" onclick="event.stopPropagation()">${pv.phone?`<a href="tel:${pv.phone}" class="prov-btn">📞</a>`:''} ${pv.phone?`<a href="https://wa.me/${pv.phone.replace(/\D/g,'')}" class="prov-btn" target="_blank">💬</a>`:''}</div></div>`;
+  });
+  document.getElementById('adm-list').innerHTML=html;
+}
+
+window.closeModal=function(id){document.getElementById(id).classList.remove('open');};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
+document.querySelectorAll('.modal-ov').forEach(o=>o.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');}));
+
+// ── SWIPE DESDE BORDE IZQUIERDO PARA VOLVER ──
+(function(){
+  let startX=0,startY=0,tracking=false;
+  document.addEventListener('touchstart',function(e){
+    const t=e.touches[0];
+    if(t.clientX<22){tracking=true;startX=t.clientX;startY=t.clientY;}
+  },{passive:true});
+  document.addEventListener('touchmove',function(e){
+    if(!tracking)return;
+    const t=e.touches[0];
+    const dx=t.clientX-startX,dy=Math.abs(t.clientY-startY);
+    if(dx>50&&dy<60&&curTab&&curTab!=='inv'){
+      tracking=false;
+      const firstBtn=document.querySelector('.tab-btn');
+      showTab('inv',firstBtn);
+    }
+  },{passive:true});
+  document.addEventListener('touchend',function(){tracking=false;},{passive:true});
+})();
+</script>
+</body>
+</html>
